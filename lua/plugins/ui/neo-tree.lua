@@ -9,6 +9,13 @@ neo_tree.dependencies = {
 neo_tree.config = function()
 	require("neo-tree").setup({
 		window = { width = 30 },
+		filesystem = {
+			filtered_items = {
+				visible = true,
+				hide_dotfiles = false,
+				hide_gitignored = false,
+			},
+		},
 		event_handlers = {
 			{
 				event = "file_open_requested",
