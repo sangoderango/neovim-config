@@ -2,13 +2,18 @@ local lualine = { "nvim-lualine/lualine.nvim" }
 
 lualine.dependencies = { "nvim-tree/nvim-web-devicons" }
 
-lualine.config = function()
-	local lazy_extension = require("lualine.extensions.lazy")
-	lazy_extension.sections = vim.tbl_extend("force", lazy_extension.sections, {
+local function add_right(extension)
+	extension.sections = vim.tbl_extend("force", extension.sections, {
 		lualine_x = { "filetype" },
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	})
+
+	return extension
+end
+
+lualine.config = function()
+	local lazy_extension = add_right(require("lualine.extensions.lazy"))
 
 	local neo_tree_extension = {
 		sections = {
@@ -28,6 +33,8 @@ lualine.config = function()
 		},
 		filetypes = { "neo-tree" },
 	}
+
+	local mason_extension = add_right(require("lualine.extensions.mason"))
 
 	require("lualine").setup({
 		options = {
@@ -54,7 +61,11 @@ lualine.config = function()
 			lualine_y = {},
 			lualine_z = {},
 		},
-		extensions = { lazy_extension, neo_tree_extension },
+		extensions = {
+			lazy_extension,
+			neo_tree_extension,
+			mason_extension,
+		},
 	})
 end
 

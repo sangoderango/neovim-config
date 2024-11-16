@@ -15,6 +15,15 @@ local function install_lazy()
 	vim.opt.rtp:prepend(path)
 end
 
+local function load_plugins()
+	require("lazy").setup({
+		spec = {
+			{ import = "plugins.ui" },
+			{ import = "plugins.lsp" },
+		},
+	})
+end
+
 local function set_vim_options()
 	vim.opt.expandtab = true
 	vim.opt.tabstop = 4
@@ -25,12 +34,7 @@ end
 local function start()
 	install_lazy()
 
-	require("lazy").setup({
-		spec = {
-			{ import = "plugins.ui" },
-			{ import = "plugins.lsp" },
-		},
-	})
+	load_plugins()
 
 	set_vim_options()
 end

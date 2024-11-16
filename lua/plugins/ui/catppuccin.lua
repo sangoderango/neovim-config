@@ -9,6 +9,8 @@ catppuccin.config = function()
 		custom_highlights = function(colors)
 			return {
 				LazyNormal = { bg = colors.mantle, fg = colors.text },
+				MasonNormal = { bg = colors.mantle, fg = colors.text },
+				NormalFloat = { bg = colors.mantle, fg = colors.text },
 			}
 		end,
 	})
