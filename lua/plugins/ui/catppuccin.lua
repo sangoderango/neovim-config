@@ -11,6 +11,9 @@ catppuccin.config = function()
 				LazyNormal = { bg = colors.mantle, fg = colors.text },
 				MasonNormal = { bg = colors.mantle, fg = colors.text },
 				NormalFloat = { bg = colors.mantle, fg = colors.text },
+				LineNrAbove = { fg = colors.surface2, bold = true },
+				LineNr = { fg = colors.peach, bold = true },
+				LineNrBelow = { fg = colors.surface2, bold = true },
 			}
 		end,
 	})
