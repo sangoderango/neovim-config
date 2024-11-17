@@ -14,6 +14,7 @@ plugin.config = function()
 				LineNrAbove = { fg = colors.surface2, bold = true },
 				LineNr = { fg = colors.peach, bold = true },
 				LineNrBelow = { fg = colors.surface2, bold = true },
+				PMenu = { bg = colors.mantle, fg = colors.text },
 			}
 		end,
 	})
