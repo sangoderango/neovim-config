@@ -1,6 +1,6 @@
-local statuscol = { "luukvbaal/statuscol.nvim" }
+local plugin = { "luukvbaal/statuscol.nvim" }
 
-statuscol.config = function()
+plugin.config = function()
 	local builtin = require("statuscol.builtin")
 
 	vim.o.number = true
@@ -23,4 +23,4 @@ statuscol.config = function()
 	})
 end
 
-return statuscol
+return plugin

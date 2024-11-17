@@ -1,6 +1,6 @@
-local lualine = { "nvim-lualine/lualine.nvim" }
+local plugin = { "nvim-lualine/lualine.nvim" }
 
-lualine.dependencies = { "nvim-tree/nvim-web-devicons" }
+plugin.dependencies = { "nvim-tree/nvim-web-devicons" }
 
 local function add_right(extension)
 	extension.sections = vim.tbl_extend("force", extension.sections, {
@@ -12,7 +12,7 @@ local function add_right(extension)
 	return extension
 end
 
-lualine.config = function()
+plugin.config = function()
 	local lazy_extension = add_right(require("lualine.extensions.lazy"))
 
 	local neo_tree_extension = {
@@ -69,4 +69,4 @@ lualine.config = function()
 	})
 end
 
-return lualine
+return plugin

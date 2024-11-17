@@ -1,8 +1,8 @@
-local lsp_config = { "neovim/nvim-lspconfig" }
+local plugin = { "neovim/nvim-lspconfig" }
 
-lsp_config.event = { "BufReadPre", "BufNewFile" }
+plugin.event = { "BufReadPre", "BufNewFile" }
 
-lsp_config.config = function()
+plugin.config = function()
 	require("lspconfig").lua_ls.setup({
 		on_init = function(client)
 			if client.workspace_folders then
@@ -59,4 +59,4 @@ lsp_config.config = function()
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 end
 
-return lsp_config
+return plugin

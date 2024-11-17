@@ -1,7 +1,7 @@
-local mason = { "williamboman/mason.nvim" }
+local plugin = { "williamboman/mason.nvim" }
 
-mason.config = function()
+plugin.config = function()
 	require("mason").setup({})
 end
 
-return mason
+return plugin

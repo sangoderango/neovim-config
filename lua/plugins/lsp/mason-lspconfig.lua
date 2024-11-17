@@ -1,6 +1,6 @@
-local mason_lspconfig = { "williamboman/mason-lspconfig.nvim" }
+local plugin = { "williamboman/mason-lspconfig.nvim" }
 
-mason_lspconfig.config = function()
+plugin.config = function()
 	require("mason-lspconfig").setup({
 		ensure_installed = {
 			"lua_ls",
@@ -9,4 +9,4 @@ mason_lspconfig.config = function()
 	})
 end
 
-return mason_lspconfig
+return plugin

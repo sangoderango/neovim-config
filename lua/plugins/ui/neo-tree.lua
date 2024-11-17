@@ -1,12 +1,12 @@
-local neo_tree = { "nvim-neo-tree/neo-tree.nvim" }
+local plugin = { "nvim-neo-tree/neo-tree.nvim" }
 
-neo_tree.dependencies = {
+plugin.dependencies = {
 	"nvim-lua/plenary.nvim",
 	"nvim-tree/nvim-web-devicons",
 	"MunifTanjim/nui.nvim",
 }
 
-neo_tree.config = function()
+plugin.config = function()
 	require("neo-tree").setup({
 		window = { width = 30 },
 		filesystem = {
@@ -29,4 +29,4 @@ neo_tree.config = function()
 	vim.keymap.set("n", "<C-N>", "<Cmd>Neotree reveal left toggle=true<CR>", { silent = true, noremap = true })
 end
 
-return neo_tree
+return plugin

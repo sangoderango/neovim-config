@@ -1,8 +1,8 @@
-local catppuccin = { "catppuccin/nvim" }
+local plugin = { "catppuccin/nvim" }
 
-catppuccin.priority = 1000
+plugin.priority = 1000
 
-catppuccin.config = function()
+plugin.config = function()
 	require("catppuccin").setup({
 		flavour = "mocha",
 		transparent_background = true,
@@ -21,4 +21,4 @@ catppuccin.config = function()
 	vim.cmd.colorscheme("catppuccin")
 end
 
-return catppuccin
+return plugin
