@@ -7,6 +7,7 @@ plugin.dependencies = {
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-nvim-lsp",
 	"onsails/lspkind.nvim",
+	"hrsh7th/cmp-nvim-lsp-signature-help",
 }
 
 plugin.event = "InsertEnter"
@@ -21,6 +22,7 @@ plugin.config = function()
 			end,
 		},
 		sources = {
+			{ name = "nvim_lsp_signature_help" },
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
 			{ name = "buffer" },
@@ -28,10 +30,15 @@ plugin.config = function()
 		},
 		formatting = {
 			format = require("lspkind").cmp_format({
-				mode = "symbol_text", -- Show both icons and text
-				maxwidth = 30, -- Truncate long entries
-				ellipsis_char = "...", -- Add an ellipsis if text is truncated
+				mode = "symbol_text",
+				maxwidth = 30,
+				ellipsis_char = "...",
 			}),
+		},
+
+		performance = {
+			throttle = 20,
+			debounce = 20,
 		},
 		mapping = {
 			["<Tab>"] = cmp.mapping.confirm({

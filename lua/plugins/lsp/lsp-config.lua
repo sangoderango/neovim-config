@@ -3,7 +3,11 @@ local plugin = { "neovim/nvim-lspconfig" }
 plugin.event = { "BufReadPre", "BufNewFile" }
 
 plugin.config = function()
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 	require("lspconfig").lua_ls.setup({
+		capabilities = capabilities,
 		on_init = function(client)
 			if client.workspace_folders then
 				local path = client.workspace_folders[1].name
