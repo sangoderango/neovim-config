@@ -16,10 +16,14 @@ local function install_lazy()
 end
 
 local function load_plugins()
+	local require_directory = require("utility.require_directory")
+
+	_G.languages = require_directory("plugins.lsp.languages")
+
 	require("lazy").setup({
 		spec = {
-			{ import = "plugins.ui" },
 			{ import = "plugins.lsp" },
+			{ import = "plugins.ui" },
 		},
 	})
 end

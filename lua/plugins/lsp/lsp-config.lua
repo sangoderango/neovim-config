@@ -3,47 +3,14 @@ local plugin = { "neovim/nvim-lspconfig" }
 plugin.event = { "BufReadPre", "BufNewFile" }
 
 plugin.config = function()
+	local lspconfig = require("lspconfig")
+
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-	require("lspconfig").lua_ls.setup({
-		capabilities = capabilities,
-		on_init = function(client)
-			if client.workspace_folders then
-				local path = client.workspace_folders[1].name
-				if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
-					return
-				end
-			end
-
-			client.config.settings.Lua = {
-				runtime = {
-					version = "LuaJIT",
-				},
-				workspace = {
-					checkThirdParty = false,
-					library = {
-						vim.env.VIMRUNTIME,
-						"${3rd}/luv/library",
-					},
-				},
-			}
-		end,
-		settings = {},
-	})
-
-	vim.api.nvim_create_autocmd("BufWritePost", {
-		pattern = { "*lua" },
-		callback = function()
-			local view = vim.fn.winsaveview()
-
-			vim.fn.system("stylua " .. vim.fn.shellescape(vim.api.nvim_buf_get_name(0)))
-
-			vim.cmd("edit")
-
-			vim.fn.winrestview(view)
-		end,
-	})
+	for _, language in ipairs(_G.languages) do
+		lspconfig[language.lsp].setup(language.lsp_config(capabilities))
+	end
 
 	vim.diagnostic.config({
 		signs = {
