@@ -1,26 +1,26 @@
 local plugin = { "luukvbaal/statuscol.nvim" }
 
 plugin.config = function()
-	local builtin = require("statuscol.builtin")
+    local builtin = require("statuscol.builtin")
 
-	vim.o.number = true
-	vim.o.relativenumber = true
+    vim.o.number = true
+    vim.o.relativenumber = true
 
-	require("statuscol").setup({
-		relculright = true,
-		ft_ignore = { "neo-tree" },
-		segments = {
-			{
-				sign = {
-					namespace = { "diagnostic/signs" },
-					maxwidth = 1,
-					colwidth = 2,
-					auto = false,
-				},
-			},
-			{ text = { builtin.lnumfunc, " " } },
-		},
-	})
+    require("statuscol").setup({
+        relculright = true,
+        ft_ignore = { "neo-tree" },
+        segments = {
+            {
+                sign = {
+                    namespace = { "diagnostic/signs" },
+                    maxwidth = 1,
+                    colwidth = 2,
+                    auto = false,
+                },
+            },
+            { text = { builtin.lnumfunc, " " } },
+        },
+    })
 end
 
 return plugin
