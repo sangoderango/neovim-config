@@ -7,16 +7,25 @@ plugin.config = function()
         flavour = "mocha",
         transparent_background = true,
         custom_highlights = function(colors)
+            local background = colors.mantle
+            local relative_line = colors.surface2
+            local absolute_line = colors.peach
+
             return {
-                LazyNormal = { bg = colors.mantle, fg = colors.text },
-                MasonNormal = { bg = colors.mantle, fg = colors.text },
-                NormalFloat = { bg = colors.mantle, fg = colors.text },
-                LineNrAbove = { fg = colors.surface2, bold = true },
-                LineNr = { fg = colors.peach, bold = true },
-                LineNrBelow = { fg = colors.surface2, bold = true },
-                PMenu = { bg = colors.mantle, fg = colors.text },
+                LazyNormal = { bg = background },
+                MasonNormal = { bg = background },
+                NormalFloat = { bg = background },
+                PMenu = { bg = background },
+                LineNrAbove = { fg = relative_line },
+                LineNr = { fg = absolute_line },
+                LineNrBelow = { fg = relative_line },
             }
         end,
+        integrations = {
+            mason = true,
+            neotree = true,
+            cmp = true,
+        },
     })
 
     vim.cmd.colorscheme("catppuccin")
