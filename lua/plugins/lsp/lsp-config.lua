@@ -2,6 +2,8 @@ local plugin = { "neovim/nvim-lspconfig" }
 
 plugin.event = { "BufReadPre", "BufNewFile" }
 
+plugin.dependencies = { "hrsh7th/cmp-nvim-lsp" }
+
 plugin.config = function()
     local lspconfig = require("lspconfig")
 
@@ -10,6 +12,8 @@ plugin.config = function()
 
     for _, language in ipairs(_G.languages) do
         lspconfig[language.lsp].setup(language.lsp_config(capabilities))
+
+        language.setup()
     end
 
     vim.diagnostic.config({

@@ -7,8 +7,13 @@ plugin.dependencies = {
 }
 
 plugin.config = function()
+    local command = require("neo-tree.command")
+
     require("neo-tree").setup({
-        window = { width = 30 },
+        window = {
+            width = 30,
+        },
+        popup_border_style = "single",
         filesystem = {
             filtered_items = {
                 visible = true,
@@ -20,7 +25,7 @@ plugin.config = function()
             {
                 event = "file_open_requested",
                 handler = function()
-                    require("neo-tree.command").execute({ action = "close" })
+                    command.execute({ action = "close" })
                 end,
             },
         },

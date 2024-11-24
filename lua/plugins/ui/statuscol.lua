@@ -18,7 +18,9 @@ plugin.config = function()
                     auto = false,
                 },
             },
-            { text = { builtin.lnumfunc, " " } },
+            {
+                text = { builtin.lnumfunc, " " },
+            },
         },
     })
 end

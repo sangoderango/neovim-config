@@ -25,6 +25,12 @@ local function load_plugins()
             { import = "plugins.lsp" },
             { import = "plugins.ui" },
         },
+        install = {
+            colorscheme = { "catppuccin" },
+        },
+        change_detection = {
+            notify = false,
+        },
     })
 end
 
