@@ -13,7 +13,9 @@ plugin.config = function()
     for _, language in ipairs(_G.languages) do
         lspconfig[language.lsp].setup(language.lsp_config(capabilities))
 
-        language.setup()
+        if language.setup then
+            language.setup()
+        end
     end
 
     vim.diagnostic.config({
