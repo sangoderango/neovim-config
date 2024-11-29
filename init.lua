@@ -47,6 +47,13 @@ local function set_vim_options()
         trail = "·",
         tab = "  ",
     }
+
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "*",
+        callback = function()
+            vim.opt_local.formatoptions:remove({ "r", "o" })
+        end,
+    })
 end
 
 local function start()
