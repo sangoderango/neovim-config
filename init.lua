@@ -15,15 +15,28 @@ local function install_lazy()
     vim.opt.rtp:prepend(path)
 end
 
-local function load_plugins()
+local function load_languages()
     local require_directory = require("utility.require_directory")
 
     _G.languages = require_directory("plugins.lsp.languages")
 
+    local plugins = {}
+
+    for _, language in ipairs(_G.languages) do
+        if language.plugin then
+            table.insert(plugins, language.plugin())
+        end
+    end
+
+    return plugins
+end
+
+local function setup_lazy()
     require("lazy").setup({
         spec = {
             { import = "plugins.lsp" },
             { import = "plugins.ui" },
+            unpack(load_languages()),
         },
         install = {
             colorscheme = { "catppuccin" },
@@ -34,20 +47,22 @@ local function load_plugins()
     })
 end
 
-local function set_vim_options()
-    vim.opt.expandtab = true
-    vim.opt.tabstop = 4
-    vim.opt.softtabstop = 4
-    vim.opt.shiftwidth = 4
+local function set_indentation(width, use_tabs)
+    assert(width > 0, "Width must be a positive number!")
 
-    vim.opt.wrap = false
+    vim.opt.expandtab = not use_tabs
+    vim.opt.tabstop = width
+    vim.opt.softtabstop = width
+    vim.opt.shiftwidth = width
+end
 
+local function set_visual_markers(rules)
     vim.opt.list = true
-    vim.opt.listchars = {
-        trail = "·",
-        tab = "  ",
-    }
 
+    vim.opt.listchars = rules
+end
+
+local function disable_autocommenting_newlines()
     vim.api.nvim_create_autocmd("FileType", {
         pattern = "*",
         callback = function()
@@ -56,10 +71,20 @@ local function set_vim_options()
     })
 end
 
+local function set_vim_options()
+    set_indentation(4, false)
+
+    set_visual_markers({ trail = "·" })
+
+    disable_autocommenting_newlines()
+
+    vim.opt.wrap = false
+end
+
 local function start()
     install_lazy()
 
-    load_plugins()
+    setup_lazy()
 
     set_vim_options()
 end

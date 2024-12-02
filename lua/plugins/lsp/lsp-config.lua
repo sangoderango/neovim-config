@@ -11,7 +11,11 @@ plugin.config = function()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
     for _, language in ipairs(_G.languages) do
-        lspconfig[language.lsp].setup(language.lsp_config(capabilities))
+        if language.lsp_config then
+            assert(language.lsp, "Cannot configure lsp without an lsp set!")
+
+            lspconfig[language.lsp].setup(language.lsp_config(capabilities))
+        end
 
         if language.setup then
             language.setup()
