@@ -9,10 +9,10 @@ local function require_directory(relative_path)
 
     local modules = {}
 
-    for _, path in ipairs(module_paths) do
+    for index, path in ipairs(module_paths) do
         local module_name = vim.fn.fnamemodify(path, ":t:r")
 
-        table.insert(modules, require(relative_path .. "." .. module_name))
+        modules[index] = require(relative_path .. "." .. module_name)
     end
 
     return modules

@@ -2,18 +2,28 @@ local language = {}
 
 language.lsp = "lua_ls"
 
+local function does_luarc_exist(client)
+    if not client.workspace_folders then
+        return false
+    end
+
+    local path = client.workspace_folders[1].name
+
+    if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+        return true
+    end
+
+    return false
+end
+
 language.lsp_config = function(capabilities)
     local config = {}
 
     config.capabilities = capabilities
 
     config.on_init = function(client)
-        if client.workspace_folders then
-            local path = client.workspace_folders[1].name
-
-            if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
-                return
-            end
+        if does_luarc_exist(client) then
+            return
         end
 
         client.config.settings.Lua = {
@@ -30,24 +40,13 @@ language.lsp_config = function(capabilities)
         }
     end
 
-    config.settings = {}
-
     return config
 end
 
 language.setup = function()
-    vim.api.nvim_create_autocmd("BufWritePost", {
-        pattern = { "*lua" },
-        callback = function()
-            local view = vim.fn.winsaveview()
+    local format_on_save = require("utility.format_on_save")
 
-            vim.fn.system({ "stylua", vim.api.nvim_buf_get_name(0) })
-
-            vim.api.nvim_command("edit!")
-
-            vim.fn.winrestview(view)
-        end,
-    })
+    format_on_save({ "*lua" }, { "stylua" })
 end
 
 return language

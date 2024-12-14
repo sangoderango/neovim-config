@@ -17,22 +17,13 @@ language.lsp_config = function(capabilities)
 end
 
 language.setup = function()
-    vim.api.nvim_create_autocmd("BufWritePost", {
-        pattern = { "*json" },
-        callback = function()
-            local view = vim.fn.winsaveview()
+    local format_on_save = require("utility.format_on_save")
 
-            vim.fn.system({
-                "prettier",
-                "--write",
-                "--tab-width=4",
-                vim.api.nvim_buf_get_name(0),
-            })
-
-            vim.api.nvim_command("edit!")
-
-            vim.fn.winrestview(view)
-        end,
+    format_on_save({ "*json" }, {
+        "prettier",
+        "--write",
+        "--tab-width=4",
+        vim.api.nvim_buf_get_name(0),
     })
 end
 

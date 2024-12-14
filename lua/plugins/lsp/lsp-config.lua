@@ -12,7 +12,7 @@ plugin.config = function()
 
     for _, language in ipairs(_G.languages) do
         if language.lsp_config then
-            assert(language.lsp, "Cannot configure lsp without an lsp set!")
+            assert(language.lsp, "Cannot configure an lsp without an lsp set!")
 
             lspconfig[language.lsp].setup(language.lsp_config(capabilities))
         end

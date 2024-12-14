@@ -9,18 +9,9 @@ language.plugin = function()
 end
 
 language.setup = function()
-    vim.api.nvim_create_autocmd("BufWritePost", {
-        pattern = { "*luau" },
-        callback = function()
-            local view = vim.fn.winsaveview()
+    local format_on_save = require("utility.format_on_save")
 
-            vim.fn.system({ "stylua", vim.api.nvim_buf_get_name(0) })
-
-            vim.api.nvim_command("edit!")
-
-            vim.fn.winrestview(view)
-        end,
-    })
+    format_on_save({ "*luau" }, { "stylua" })
 end
 
 return language
