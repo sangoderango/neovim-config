@@ -1,20 +1,17 @@
 local plugin = { "neovim/nvim-lspconfig" }
 
-plugin.event = { "BufReadPre", "BufNewFile" }
-
 plugin.dependencies = { "hrsh7th/cmp-nvim-lsp" }
+
+plugin.event = { "BufReadPre", "BufNewFile" }
 
 plugin.config = function()
     local lspconfig = require("lspconfig")
 
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-
     for _, language in ipairs(_G.languages) do
         if language.lsp_config then
-            assert(language.lsp, "Cannot configure an lsp without an lsp set!")
+            assert(language.lsp ~= nil)
 
-            lspconfig[language.lsp].setup(language.lsp_config(capabilities))
+            lspconfig[language.lsp].setup(language.lsp_config())
         end
 
         if language.setup then

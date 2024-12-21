@@ -1,5 +1,5 @@
-local function set_indentation(width, use_tabs)
-    assert(width >= 0, "Width must be a positive number!")
+local function set_indentation(use_tabs, width)
+    assert(width >= 0 and width % 1 == 0)
 
     vim.opt.expandtab = not use_tabs
     vim.opt.tabstop = width
@@ -30,7 +30,7 @@ end
 local function Setup()
     vim.opt.wrap = false
 
-    set_indentation(4, false)
+    set_indentation(false, 4)
 
     set_visual_markers({ trail = "·" })
 

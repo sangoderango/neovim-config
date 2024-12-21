@@ -11,6 +11,14 @@ plugin.dependencies = {
 
 plugin.event = "InsertEnter"
 
+plugin.init = function()
+    _G.make_capabilities = function()
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+        return vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    end
+end
+
 plugin.config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")

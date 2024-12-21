@@ -1,5 +1,5 @@
 local function extend(array, value)
-    table.insert(array, value)
+    array[#array + 1] = value
 
     return array
 end

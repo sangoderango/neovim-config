@@ -2,14 +2,16 @@ local language = {}
 
 language.lsp = "jsonls"
 
-language.lsp_config = function(capabilities)
+language.lsp_config = function()
     local config = {}
 
-    config.capabilities = capabilities
+    config.capabilities = _G.make_capabilities()
 
     config.settings = {
         json = {
-            validate = { enable = true },
+            validate = {
+                enable = true,
+            },
         },
     }
 

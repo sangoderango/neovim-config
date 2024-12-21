@@ -5,6 +5,20 @@ language.plugin = function()
 
     plugin.dependencies = { "nvim-lua/plenary.nvim" }
 
+    plugin.config = function()
+        local capabilities = _G.make_capabilities()
+        capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
+        require("luau-lsp").setup({
+            plugin = {
+                enabled = false,
+            },
+            server = {
+                capabilities = capabilities,
+            },
+        })
+    end
+
     return plugin
 end
 

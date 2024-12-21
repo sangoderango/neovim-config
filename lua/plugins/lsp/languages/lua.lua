@@ -16,10 +16,10 @@ local function does_luarc_exist(client)
     return false
 end
 
-language.lsp_config = function(capabilities)
+language.lsp_config = function()
     local config = {}
 
-    config.capabilities = capabilities
+    config.capabilities = _G.make_capabilities()
 
     config.on_init = function(client)
         if does_luarc_exist(client) then
