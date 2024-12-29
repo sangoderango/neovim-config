@@ -14,7 +14,7 @@ plugin.config = function()
                 sign = {
                     namespace = { "diagnostic/signs" },
                     maxwidth = 1,
-                    colwidth = 2,
+                    colwidth = 1,
                     auto = false,
                 },
             },

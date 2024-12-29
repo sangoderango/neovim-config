@@ -15,7 +15,7 @@ plugin.config = function()
                 LazyNormal = { bg = background },
                 MasonNormal = { bg = background },
                 NormalFloat = { bg = background },
-                PMenu = { bg = background },
+                Pmenu = { bg = background },
                 CmpItemMenu = { bg = background },
                 LineNrAbove = { fg = relative_line },
                 LineNr = { fg = absolute_line },
@@ -25,6 +25,7 @@ plugin.config = function()
         integrations = {
             mason = true,
             neotree = true,
+            cmp = true,
         },
     })
 
