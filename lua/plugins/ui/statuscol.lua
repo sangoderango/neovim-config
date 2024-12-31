@@ -23,6 +23,16 @@ plugin.config = function()
             },
         },
     })
+
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TextChanged", "TextChangedI" }, {
+        callback = function()
+            local line_count = vim.api.nvim_buf_line_count(0)
+
+            local digits = #tostring(line_count)
+
+            vim.opt.numberwidth = digits + 1
+        end,
+    })
 end
 
 return plugin

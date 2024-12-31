@@ -28,6 +28,7 @@ plugin.config = function()
                 [vim.diagnostic.severity.INFO] = " ",
             },
         },
+        severity_sort = true,
     })
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {})
