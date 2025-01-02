@@ -7,7 +7,9 @@ plugin.config = function()
         flavour = "mocha",
         transparent_background = true,
         custom_highlights = function(colors)
+            local text = colors.text
             local background = colors.mantle
+            local light_background = colors.surface0
             local relative_line = colors.surface2
             local absolute_line = colors.peach
 
@@ -20,6 +22,13 @@ plugin.config = function()
                 LineNrAbove = { fg = relative_line },
                 LineNr = { fg = absolute_line },
                 LineNrBelow = { fg = relative_line },
+                TelescopeNormal = { bg = background },
+                TelescopeBorder = { fg = background, bg = background },
+                TelescopeSelection = { fg = text, bg = light_background },
+                TelescopePromptNormal = { bg = light_background },
+                TelescopePromptBorder = { fg = light_background, bg = light_background },
+                TelescopePromptTitle = { fg = colors.base, bg = colors.red },
+                TelescopePreviewTitle = { fg = colors.base, bg = colors.green },
             }
         end,
         integrations = {

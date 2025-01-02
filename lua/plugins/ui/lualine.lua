@@ -12,14 +12,20 @@ local function add_default_right(extension)
     return extension
 end
 
-plugin.config = function()
-    local lazy_extension = add_default_right(require("lualine.extensions.lazy"))
+local function lazy_extension()
+    return add_default_right(require("lualine.extensions.lazy"))
+end
 
-    local neo_tree_extension = add_default_right({
+local function mason_extension()
+    return add_default_right(require("lualine.extensions.mason"))
+end
+
+local function neo_tree_extension()
+    return add_default_right({
         sections = {
             lualine_a = {
                 function()
-                    return "neo-tree  "
+                    return "NeoTree  "
                 end,
             },
             lualine_b = {
@@ -30,9 +36,31 @@ plugin.config = function()
         },
         filetypes = { "neo-tree" },
     })
+end
 
-    local mason_extension = add_default_right(require("lualine.extensions.mason"))
+local function telescope_extension()
+    local state = require("telescope.actions.state")
 
+    return add_default_right({
+        sections = {
+            lualine_a = {
+                function()
+                    return "Telescope"
+                end,
+            },
+            lualine_b = {
+                function()
+                    local picker = state.get_current_picker(vim.api.nvim_get_current_buf())
+
+                    return "Results: " .. tostring(picker.manager.linked_states.size)
+                end,
+            },
+        },
+        filetypes = { "TelescopePrompt" },
+    })
+end
+
+plugin.config = function()
     require("lualine").setup({
         options = {
             theme = "catppuccin",
@@ -51,9 +79,10 @@ plugin.config = function()
             lualine_z = { "location" },
         },
         extensions = {
-            lazy_extension,
-            neo_tree_extension,
-            mason_extension,
+            lazy_extension(),
+            mason_extension(),
+            neo_tree_extension(),
+            telescope_extension(),
         },
     })
 end
